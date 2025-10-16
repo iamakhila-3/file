@@ -1,0 +1,29 @@
+.home-image-container {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.home-image {
+  width: 100%;
+  height: auto;
+}
+
+.home-text {
+  position: absolute;
+  top: 20px; /* text displayed near the top of image */
+  left: 50%;
+  transform: translateX(-50%);
+  color: #1b0e0e; /* solid color text */
+  
+}
+
+.home-text h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.home-text p {
+  font-size: 18px;
+  margin: 15px 0;
+}

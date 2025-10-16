@@ -1,0 +1,59 @@
+<!-- Top Bar -->
+<div class="actions">
+  <input [(ngModel)]="searchTerm" placeholder="Search by Employee, Status, or Approver" />
+  <button (click)="load()">Refresh</button>
+</div>
+
+<!-- Leave Requests Table -->
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Leave Type</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Days</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Applied Date</th>
+        <th>Approver</th>
+        <th>Comments</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let l of filteredRequests()">
+        <td>{{ l.id }}</td>
+        <td>{{ l.employeeName }}</td>
+        <td>{{ l.leaveTypeName }}</td>
+        <td>{{ l.startDate }}</td>
+        <td>{{ l.endDate }}</td>
+        <td>{{ l.daysRequested }}</td>
+        <td>{{ l.reason }}</td>
+        <td>{{ l.status }}</td>
+        <td>{{ l.appliedDate | date:'short' }}</td>
+        <td>{{ l.approverId || '-' }}</td>
+        <td>
+          <input [(ngModel)]="l.comments" placeholder="Enter comment" />
+        </td>
+        <td>
+          <ng-container *ngIf="l.status === 'PENDING'; else statusText">
+            <button class="approve" (click)="approve(l)">Approve</button>
+            <button class="reject" (click)="reject(l)">Reject</button>
+          </ng-container>
+          <ng-template #statusText>
+            <span [ngClass]="{
+              'status-approved': l.status === 'APPROVED',
+              'status-rejected': l.status === 'REJECTED'
+            }">
+              {{ l.status }}
+            </span>
+            <button *ngIf="l.status !== 'PENDING'" (click)="resetStatus(l)" style="margin-left:5px;">Undo</button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

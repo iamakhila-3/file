@@ -1,0 +1,85 @@
+/* Leave Types Table Container */
+:host {
+  display: block;
+  padding: 15px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+table th,
+table td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background-color: #1f4494;
+  color: white;
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #e6f2ff;
+}
+
+/* Status styling */
+td {
+  color: #333;
+}
+
+td.status-active {
+  color: green;
+  font-weight: bold;
+}
+
+td.status-inactive {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  table tbody td:last-child {
+    border-bottom: 0;
+  }
+
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 40%;
+    text-align: left;
+  }
+}

@@ -1,0 +1,13 @@
+<div class="dashboard">
+  <h2>Employee Dashboard</h2>
+
+  <nav>
+    <button [class.active]="activeTab === 'types'" (click)="activeTab = 'types'">Leave Types</button>
+    <button [class.active]="activeTab === 'requests'" (click)="activeTab = 'requests'">My Leave Requests</button>
+  </nav>
+
+  <div class="content-box">
+    <app-employee-leave-types *ngIf="activeTab === 'types'"></app-employee-leave-types>
+    <app-employee-leave-requests *ngIf="activeTab === 'requests'"></app-employee-leave-requests>
+  </div>
+</div>

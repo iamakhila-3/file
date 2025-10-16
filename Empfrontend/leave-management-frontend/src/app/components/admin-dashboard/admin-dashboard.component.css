@@ -1,0 +1,56 @@
+/* General dashboard container */
+.dashboard {
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center; /* Center aligns heading + nav */
+}
+
+/* Dashboard heading */
+.dashboard h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #1f4494;
+}
+
+/* Navigation bar */
+.dashboard nav {
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+/* Navigation links */
+.dashboard nav a {
+  text-decoration: none;
+  color: #4b5563;
+  padding: 10px 18px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+/* Hover effect for links */
+.dashboard nav a:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+/* Active link highlighting */
+.dashboard nav a.active {
+  background-color: #1f4494;
+  color: white;
+  font-weight: 600;
+}
+
+/* Space between links */
+.dashboard nav a + a {
+  margin-left: 10px;
+}
+
+/* Router outlet content spacing */
+.dashboard router-outlet ~ * {
+  margin-top: 20px;
+}

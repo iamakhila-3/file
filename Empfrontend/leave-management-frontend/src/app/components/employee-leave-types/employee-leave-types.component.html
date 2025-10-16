@@ -1,0 +1,31 @@
+<div class="leave-types-container">
+  <h3>Available Leave Types</h3>
+
+  <div *ngIf="loading">Loading leave types...</div>
+  <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <table *ngIf="!loading && leaveTypes.length > 0" class="leave-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Max Days Per Year</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let type of leaveTypes">
+        <td>{{ type.id }}</td>
+        <td>{{ type.name }}</td>
+        <td>{{ type.description }}</td>
+        <td>{{ type.maxDaysPerYear }}</td>
+        <td>{{ type.isActive ? 'Active' : 'Inactive' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && leaveTypes.length === 0">
+    No leave types available.
+  </div>
+</div>

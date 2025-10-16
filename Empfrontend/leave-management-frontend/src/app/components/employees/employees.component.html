@@ -1,0 +1,80 @@
+<!-- 🔹 Top Bar -->
+<div class="actions">
+  <input [(ngModel)]="searchTerm" placeholder="Search by ID or Name" />
+  <button *ngIf="isAdmin" (click)="openModal()">Add Employee</button>
+</div>
+
+<!-- 🔹 Employee Table (Admin/Manager) -->
+<table class="table" *ngIf="isAdmin || isManager">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Employee ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+      <th>Manager</th>
+      <th>Annual Balance</th>
+      <th>Sick Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of filteredEmployees()">
+      <td>{{ e.id }}</td>
+      <td>{{ e.employeeId }}</td>
+      <td>{{ e.name }}</td>
+      <td>{{ e.email }}</td>
+      <td>{{ e.department }}</td>
+      <td>{{ e.manager?.name || e.manager || '-' }}</td>
+      <td>{{ e.annualLeaveBalance }}</td>
+      <td>{{ e.sickLeaveBalance }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 🔹 Employee Profile (for regular users) -->
+<div *ngIf="!isAdmin && !isManager && employee" class="profile-card">
+  <h3>{{ employee.name }}</h3>
+  <p><b>ID:</b> {{ employee.employeeId }}</p>
+  <p><b>Email:</b> {{ employee.email }}</p>
+  <p><b>Department:</b> {{ employee.department }}</p>
+  <p><b>Manager:</b> {{ employee.manager?.name || '-' }}</p>
+  <p><b>Annual Balance:</b> {{ employee.annualLeaveBalance }}</p>
+  <p><b>Sick Balance:</b> {{ employee.sickLeaveBalance }}</p>
+</div>
+
+<!-- 🔹 Modal (Admin Only) -->
+<div class="modal-backdrop" *ngIf="showModal && isAdmin" (click)="closeModal()"></div>
+
+<div class="modal" *ngIf="showModal && isAdmin">
+  <div class="modal-header">
+    <h3>Add Employee</h3>
+    <button class="close-btn" (click)="closeModal()">×</button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Manager ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input [(ngModel)]="newEmployee.employeeId" placeholder="employeeid" /></td>
+        <td><input [(ngModel)]="newEmployee.name" placeholder="name" /></td>
+        <td><input [(ngModel)]="newEmployee.email" placeholder="email" /></td>
+        <td><input [(ngModel)]="newEmployee.department" placeholder="department" /></td>
+        <td><input [(ngModel)]="newEmployee.managerId" type="number" placeholder="managerid" /></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal-actions">
+    <button (click)="saveEmployee()">Save</button>
+    <button class="secondary" (click)="closeModal()">Cancel</button>
+  </div>
+</div>

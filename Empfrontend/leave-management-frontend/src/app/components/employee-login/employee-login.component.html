@@ -1,0 +1,36 @@
+<div class="login-page">
+  <div class="card">
+    <h2 class="title">Employee Login</h2>
+
+    <form (ngSubmit)="submit()" class="form" #f="ngForm" novalidate>
+      <!-- Employee ID -->
+      <label class="field">
+        <span class="label-text">Employee ID</span>
+        <input [(ngModel)]="employeeId" name="employeeId" type="text" required />
+      </label>
+
+      <!-- Password -->
+      <label class="field">
+        <span class="label-text">Password</span>
+        <input [(ngModel)]="password" name="password" type="password" required />
+      </label>
+
+      <!-- Remember & Forgot -->
+      <div class="row">
+        <label class="remember">
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" /> Remember me
+        </label>
+        <a class="link" (click)="forgotPassword()" role="button">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn">Login</button>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+
+    <!-- Register -->
+    <p class="register-text">
+      Don’t have an account? <a (click)="goToRegister()" role="button">Register</a>
+    </p>
+  </div>
+</div>

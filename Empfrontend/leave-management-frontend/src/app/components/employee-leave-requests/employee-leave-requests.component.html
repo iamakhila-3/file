@@ -1,0 +1,72 @@
+<button class="add-btn" (click)="toggleModal()">+ Add Leave Request</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Employee Name</th>
+      <th>Leave Type</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Days Requested</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Approver ID</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of leaveRequests">
+      <td>{{ request.id }}</td>
+      <td>{{ request.employeeName }}</td>
+      <td>{{ request.leaveTypeName }}</td>
+      <td>{{ request.startDate }}</td>
+      <td>{{ request.endDate }}</td>
+      <td>{{ request.daysRequested }}</td>
+      <td>{{ request.reason }}</td>
+      <td [class]="'status-' + request.status">{{ request.status }}</td>
+      <td>{{ request.approverId ?? 'N/A' }}</td>
+      <td>{{ request.comments ?? 'N/A' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h3>Add Leave Request</h3>
+    <form (ngSubmit)="addLeaveRequest()" #form="ngForm" class="leave-request-form">
+
+      <!-- Leave Type Dropdown -->
+      <label for="leaveTypeId">Leave Type</label>
+      <select [(ngModel)]="newRequest.leaveTypeId" name="leaveTypeId" id="leaveTypeId">
+        <option value="" disabled selected>Select Leave Type</option>
+        <option *ngFor="let type of leaveTypes" [value]="type.id">
+          {{ type.name }}
+        </option>
+      </select>
+
+      <!-- OR free text input -->
+      <p style="margin:5px 0;">Or enter custom leave type:</p>
+      <input type="text" [(ngModel)]="newRequest.leaveTypeName" name="leaveTypeName" placeholder="Enter leave type" />
+
+      <!-- Start Date -->
+      <label for="startDate">Start Date</label>
+      <input type="date" [(ngModel)]="newRequest.startDate" name="startDate" id="startDate" required />
+
+      <!-- End Date -->
+      <label for="endDate">End Date</label>
+      <input type="date" [(ngModel)]="newRequest.endDate" name="endDate" id="endDate" required />
+
+      <!-- Reason -->
+      <label for="reason">Reason</label>
+      <input type="text" [(ngModel)]="newRequest.reason" name="reason" id="reason" placeholder="Reason" required />
+
+      <!-- Modal Buttons -->
+      <div class="modal-actions">
+        <button type="submit">+ Add Leave Request</button>
+        <button type="button" (click)="toggleModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

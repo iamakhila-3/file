@@ -1,0 +1,39 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>{{ role | titlecase }} Login</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" formControlName="username" placeholder="Enter your username" />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label>Password</label>
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter your password" />
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="toggleShow()"></i>
+        </div>
+      </div>
+
+      <!-- Remember & Forgot -->
+      <div class="row">
+        <label class="remember">
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" /> Remember me
+        </label>
+        <a class="link" (click)="forgotPassword()" role="button">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn">Login</button>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+
+    <!-- Register -->
+    <p class="register-text">
+      Don’t have an account? <a routerLink="/register">Register</a>
+    </p>
+  </div>
+</div>

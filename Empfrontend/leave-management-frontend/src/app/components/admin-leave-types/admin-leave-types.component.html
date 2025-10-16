@@ -1,0 +1,52 @@
+<!-- src/app/components/admin-leave-types/admin-leave-types.component.html -->
+
+<!-- Add Form -->
+<form (ngSubmit)="addLeaveType()" #form="ngForm" class="actions">
+  <input [(ngModel)]="newType.name" name="name" placeholder="Name" required />
+  <input [(ngModel)]="newType.description" name="description" placeholder="Description" />
+  <input [(ngModel)]="newType.maxDaysPerYear" type="number" name="max" placeholder="Max Days" required />
+  <!-- Add button shown only to Admin or Manager -->
+  <button *ngIf="isAdmin || isManager" type="submit">Add Leave Type</button>
+</form>
+
+<!-- Leave Types Table -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Max Days/Year</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lt of leaveTypes">
+      <td>{{ lt.id }}</td>
+      <td>
+        <input *ngIf="lt.editing" type="text" [(ngModel)]="lt.name" />
+        <span *ngIf="!lt.editing">{{ lt.name }}</span>
+      </td>
+      <td>
+        <input *ngIf="lt.editing" type="text" [(ngModel)]="lt.description" />
+        <span *ngIf="!lt.editing">{{ lt.description }}</span>
+      </td>
+      <td>
+        <input *ngIf="lt.editing" type="number" [(ngModel)]="lt.maxDaysPerYear" />
+        <span *ngIf="!lt.editing">{{ lt.maxDaysPerYear }}</span>
+      </td>
+      <td>{{ lt.isActive ? 'Yes' : 'No' }}</td>
+      <td>
+        <!-- Edit allowed for Admin or Manager -->
+        <button *ngIf="!lt.editing && (isAdmin || isManager)" (click)="editLeaveType(lt)">Edit</button>
+
+        <!-- Save allowed for Admin or Manager -->
+        <button *ngIf="lt.editing && (isAdmin || isManager)" (click)="updateLeaveType(lt)">Save</button>
+
+        <!-- Delete allowed only for Admin -->
+        <button *ngIf="isAdmin" (click)="deleteLeaveType(lt.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

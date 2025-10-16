@@ -1,0 +1,59 @@
+<div class="register-container">
+  <div class="card">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <label>Email:</label>
+      <input type="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error">
+        Valid email is required
+      </div>
+
+      <label>Username:</label>
+      <input type="text" formControlName="username" />
+      <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="error">
+        Username is required
+      </div>
+
+      <label>Password:</label>
+<div class="password-wrapper">
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    formControlName="password"
+  />
+  <span class="eye-icon" (click)="toggleShow()">
+    <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+  </span>
+</div>
+
+<div
+  *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+  class="error"
+>
+  Password must be at least 6 characters
+</div>
+
+
+      <label>Role:</label>
+      <select formControlName="role">
+        <option value="SELECT">Select</option>
+        <option value="ADMIN">Admin</option>
+        <option value="MANAGER">Manager</option>
+        <option value="EMPLOYEE">Employee</option>
+      </select>
+      <div *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid" class="error">
+        Role is required
+      </div>
+
+      <button type="submit">Register</button>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </form>
+
+    <p>
+      Already have an account?
+      <a routerLink="/login">Login</a>
+    </p>
+  </div>
+</div>
